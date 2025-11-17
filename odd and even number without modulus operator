@@ -1,0 +1,37 @@
+//Write a constraint to generate even or odd numbers with in the range of 1022-1063 without using  modulus or divide operator. 
+
+class ex;
+rand int unsigned num;
+
+constraint c1{num inside {[1022:1063]};}
+function void post_randomize();
+if(num[0]==1)
+$display("odd number :%d",num);
+else
+$display("even number:%d",num);
+endfunction
+endclass
+
+module tb;
+ex e1=new();
+
+initial
+repeat(10)
+begin
+e1.randomize();
+end
+endmodule
+
+output:
+
+odd number :      1023
+odd number :      1029
+even number:      1028
+even number:      1052
+odd number :      1043
+even number:      1024
+even number:      1052
+odd number :      1033
+odd number :      1061
+odd number :      1051
+           
