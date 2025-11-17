@@ -1,0 +1,36 @@
+//Write a System Verilog Constraint for generating factorial of numbers 
+
+
+
+class ex;
+rand bit[3:0] num;
+rand int unsigned value;
+constraint c1{ value==fun(num) ;}
+
+function automatic int fun( int n);
+if(n==0)
+return 1;
+else
+return n*fun(n-1);
+endfunction
+
+
+function void post_randomize();
+$display("num %d,value %d",num,value);
+endfunction
+endclass
+
+module tb;
+ex e1=new();
+initial
+begin
+repeat(3)
+e1.randomize();
+end
+endmodule
+
+output:
+num  5,value        120
+num  4,value         24
+num  6,value        720
+      
