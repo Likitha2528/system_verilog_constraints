@@ -1,0 +1,47 @@
+/* Define following constraints for a 4-bit dynamic array. 
+The size of the array should be 5. 
+There should be even numbers in odd location and odd numbers in even locations */
+
+class ex;
+rand bit[3:0] d_arr[];
+constraint c1{d_arr.size==5;}
+constraint c2{foreach(d_arr[i])
+   
+                         if(i%2==0)
+                          d_arr[i]%2==0;
+                         else
+                         d_arr[i]%2!=0;
+                          }
+
+function void post_randomize();
+foreach (d_arr[i])
+$display("d_arr[%d]=%d",i,d_arr[i]);
+endfunction
+endclass
+
+module tb;
+ex e1=new();
+initial
+begin
+repeat(3)
+e1.randomize();
+end
+endmodule
+
+output:
+
+d_arr[          0]=14
+d_arr[          1]=15
+d_arr[          2]= 8
+d_arr[          3]= 1
+d_arr[          4]=12
+d_arr[          0]= 0
+d_arr[          1]= 9
+d_arr[          2]=10
+d_arr[          3]= 7
+d_arr[          4]= 2
+d_arr[          0]=10
+d_arr[          1]= 3
+d_arr[          2]=14
+d_arr[          3]= 7
+d_arr[          4]= 2
