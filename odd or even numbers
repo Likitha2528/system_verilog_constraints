@@ -1,0 +1,40 @@
+//Write a constraint randomize the variables which result odd or even numbers. 
+
+class ex;
+rand int unsigned odd;
+rand int unsigned even;
+
+constraint c1{odd inside{[0:50]};
+                        even inside {[51:100]};}
+constraint c2{odd%2!=0;}
+constraint c3{even%2==0;}
+
+function void post_randomize();
+$display("odd=%d even=%d",odd,even);
+endfunction
+endclass
+
+
+module tb;
+ex e1=new();
+initial
+repeat(10)
+begin
+e1.randomize();
+end
+endmodule
+
+output:
+
+odd=        21 even=        90
+odd=        21 even=        52
+odd=         7 even=        66
+odd=        11 even=        62
+odd=        33 even=        98
+odd=         5 even=        54
+odd=        33 even=        56
+odd=        31 even=        64
+odd=        27 even=        74
+odd=        11 even=        78
+           
+
