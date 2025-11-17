@@ -1,0 +1,42 @@
+//There is an 8 bit vector (bit [7:0] data_in) which takes some random variable value. Write a constraint in such a way that every time it is randomized, total number of bits toggled in data_in vector. 
+should be 5 with respect to previous value of data_in.
+
+
+class ex;
+
+rand bit[7:0]data_in;
+bit [7:0]prev_in;
+
+function void pre_randomize();
+prev_in=data_in;
+endfunction
+
+constraint c1{data_in!=prev_in;}
+constraint c2{$countones(data_in^prev_in)==5;}
+
+
+function void post_randomize();
+$display("data_in=%b,prev_in=%b",data_in,prev_in);
+endfunction
+
+endclass
+
+module tb;
+ex e1=new();
+
+initial
+repeat(5)
+begin
+e1.randomize();
+end
+endmodule
+
+
+
+output:
+data_in=10111100,prev_in=00000000
+data_in=01001110,prev_in=10111100
+data_in=00110100,prev_in=01001110
+data_in=11110011,prev_in=00110100
+data_in=01000000,prev_in=11110011
+       
